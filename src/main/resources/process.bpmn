@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.4.1">
+  <bpmn:process id="vacation-process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1xv6vid</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1xv6vid" sourceRef="StartEvent_1" targetRef="Activity_0ptwm9j" />
+    <bpmn:userTask id="Activity_0ptwm9j" name="admins task" camunda:candidateGroups="admin">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="name" label="name" type="string" />
+        </camunda:formData>
+        <camunda:taskListener class="com.payeshgaran.workflow.service.ServiceAdminTask" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1xv6vid</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s9gw21</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1s9gw21" sourceRef="Activity_0ptwm9j" targetRef="Activity_08prsdn" />
+    <bpmn:endEvent id="Event_1m3oge5">
+      <bpmn:incoming>Flow_00pfwrv</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_00pfwrv" sourceRef="Activity_08prsdn" targetRef="Event_1m3oge5" />
+    <bpmn:userTask id="Activity_08prsdn" name="masters task" camunda:candidateGroups="master">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="family" label="family" type="string" />
+        </camunda:formData>
+        <camunda:taskListener class="com.payeshgaran.workflow.service.ServiceMasterTask" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1s9gw21</bpmn:incoming>
+      <bpmn:outgoing>Flow_00pfwrv</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="vacation-process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d6oe6s_di" bpmnElement="Activity_0ptwm9j">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1m3oge5_di" bpmnElement="Event_1m3oge5">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sk9lr1_di" bpmnElement="Activity_08prsdn">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1xv6vid_di" bpmnElement="Flow_1xv6vid">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1s9gw21_di" bpmnElement="Flow_1s9gw21">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00pfwrv_di" bpmnElement="Flow_00pfwrv">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
