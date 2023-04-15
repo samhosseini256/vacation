@@ -25,23 +25,9 @@ public class ServiceAdminTask implements TaskListener {
     @Override
     public void notify(DelegateTask delegateTask) {
 
-//        taskService.setAssignee(delegateTask.getId(),"user1");
-
-        taskService.setAssignee(delegateTask.getId(),getRandomUsername());
+        taskService.setAssignee(delegateTask.getId(),"user1");
     }
 
-    private String getRandomUsername(){
-        List <String> randomUsername = new ArrayList<>();
-        randomUsername.add("user1");
-        randomUsername.add("user2");
-        randomUsername.add("user3");
-        randomUsername.add("user4");
-
-        Random random = new Random();
-
-        return randomUsername.get(random.nextInt(randomUsername.size()));
-
-    }
 
 
 }
