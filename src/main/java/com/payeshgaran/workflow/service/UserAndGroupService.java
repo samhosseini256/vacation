@@ -38,10 +38,12 @@ public class UserAndGroupService {
 
         User user = identityService.createUserQuery().userId(userModel.getUsername()).singleResult();
         if (user!=null){
+
             user.setId(userModel.getUsername());
             user.setPassword(userModel.getPassword());
             user.setFirstName(userModel.getFirstName());
             user.setLastName(userModel.getLastName());
+            identityService.saveUser(user);
         }
         else System.out.println("namojood");
 
