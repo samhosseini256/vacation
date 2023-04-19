@@ -27,5 +27,10 @@ public class Controller {
         userAndGroupService.updateUser(userModel);
     }
 
+    @PostMapping("/save-tenant-{tenantId}-{tenantName}")
+    public void saveTenant(@PathVariable String tenantId, @PathVariable String tenantName){
+        userAndGroupService.createTenant(tenantId,tenantName);
+    }
+
 
 }
