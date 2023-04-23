@@ -37,8 +37,37 @@ public class Controller {
 
     @PostMapping("/save-tenant-{tenantId}-{tenantName}")
     public void saveTenant(@PathVariable String tenantId, @PathVariable String tenantName){
-        userAndGroupService.createTenant(tenantId,tenantName);
+        userAndGroupService.saveTenant(tenantId,tenantName);
     }
 
+    @PostMapping("/delete-tenant-{tenantId}-{tenantName}")
+    public void deleteTenant(@PathVariable String tenantId, @PathVariable String tenantName){
+        userAndGroupService.deleteTenant(tenantId,tenantName);
+    }
+
+    @PostMapping("/update-tenant-{tenantId}-{tenantName}")
+    public void updateTenant(@PathVariable String tenantId, @PathVariable String tenantName) {
+        userAndGroupService.updateTenant(tenantId, tenantName);
+    }
+
+    @PostMapping("/save-group-{groupId}-{groupName}")
+    public void saveGroup(@PathVariable String groupId, @PathVariable String groupName){
+        userAndGroupService.saveGroup(groupId,groupName);
+    }
+
+    @PostMapping("/update-group-{groupId}-{groupName}")
+    public void updateGroup(@PathVariable String groupId, @PathVariable String groupName){
+        userAndGroupService.updateGroup(groupId,groupName);
+    }
+
+    @PostMapping("/delete-group-{groupId}-{groupName}")
+    public void deleteGroup(@PathVariable String groupId, @PathVariable String groupName){
+        userAndGroupService.deleteGroup(groupId,groupName);
+    }
+
+    @PostMapping("/add-user-to-group-{userId}-{groupId}")
+    public void addUserToGroup(@PathVariable String userId, @PathVariable String groupId){
+        userAndGroupService.addUserToGroup(userId,groupId);
+    }
 
 }

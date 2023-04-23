@@ -2,10 +2,10 @@ package com.payeshgaran.workflow.service;
 
 import com.payeshgaran.workflow.model.UserModel;
 import org.camunda.bpm.engine.IdentityService;
+import org.camunda.bpm.engine.ManagementService;
+import org.camunda.bpm.engine.identity.Group;
 import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.User;
-import org.camunda.bpm.engine.variable.Variables;
-import org.camunda.bpm.engine.variable.value.ObjectValue;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,6 +17,8 @@ public class UserAndGroupService {
     @Inject
     private IdentityService identityService;
 
+    @Inject
+    ManagementService managementService;
 
     public void saveUser(UserModel userModel){
 
@@ -27,7 +29,7 @@ public class UserAndGroupService {
         user.setLastName(userModel.getLastName());
 
         if (!userExist(userModel.getUsername())) identityService.saveUser(user);
-        else System.out.println("TEKRARI");
+        else System.out.println("Mojood");
 
     }
 
@@ -56,7 +58,7 @@ public class UserAndGroupService {
     }
 
 
-    public void createTenant(String tenantId, String tenantName){
+    public void saveTenant(String tenantId, String tenantName){
 
         Tenant tenant = identityService.newTenant(tenantId);
         tenant.setName(tenantName);
@@ -65,6 +67,43 @@ public class UserAndGroupService {
 
     }
 
+    public void updateTenant(String tenantId, String tenantName){
+        Tenant tenant = identityService.createTenantQuery().tenantId(tenantId).singleResult();
+        tenant.setName(tenantName);
+        if (!tenantExist(tenantId, tenantName)) identityService.saveTenant(tenant);
+        else System.out.println("Mojood");
+    }
+
+    public void deleteTenant(String tenantId, String tenantName){
+
+        if (tenantExist(tenantId, tenantName) )identityService.deleteTenant(tenantId);
+        else System.out.println("namojood");
+    }
+
+
+    public void saveGroup(String groupId, String groupName){
+        Group group = identityService.newGroup(groupId);
+        group.setName(groupName);
+        if (!groupExist(groupId,groupName)) identityService.saveGroup(group);
+        else System.out.println("Mojood");
+    }
+
+
+    public void updateGroup(String groupId, String groupName){
+        Group group = identityService.createGroupQuery().groupId(groupId).singleResult();
+        group.setName(groupName);
+        if (!groupExist(groupId,groupName)) identityService.saveGroup(group);
+        else System.out.println("Mojood");
+    }
+
+    public void deleteGroup(String groupId, String groupName){
+        if (groupExist(groupId,groupName)) identityService.deleteGroup(groupId);
+        else System.out.println("namojood");
+    }
+
+    public void addUserToGroup(String userId, String groupName){
+        identityService.createMembership(userId,groupName); //todo check
+    }
 
 
 
@@ -92,9 +131,17 @@ public class UserAndGroupService {
     }
 
     private boolean tenantExist (String tenantId, String tenantName){
+
         Tenant withTenantId = identityService.createTenantQuery().tenantId(tenantId).singleResult();
-        Tenant WithTenantName = identityService.createTenantQuery().tenantName(tenantName).singleResult();
-        return  !(withTenantId==null && WithTenantName==null);
+        Tenant withTenantName = identityService.createTenantQuery().tenantName(tenantName).singleResult();
+
+        return withTenantId != null || withTenantName != null;
+    }
+
+    private boolean groupExist(String groupId, String groupName){
+        Group withGroupId = identityService.createGroupQuery().groupId(groupId).singleResult();
+        Group withGroupName = identityService.createGroupQuery().groupName(groupName).singleResult();
+        return withGroupId != null || withGroupName != null;
     }
 
 
