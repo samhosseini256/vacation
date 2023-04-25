@@ -1,9 +1,12 @@
 package com.payeshgaran.workflow.controller;
 
 
+import com.payeshgaran.workflow.model.TaskModel;
 import com.payeshgaran.workflow.model.UserModel;
 import com.payeshgaran.workflow.service.UserAndGroupService;
+import com.payeshgaran.workflow.service.UserTaskService;
 import org.camunda.bpm.engine.identity.User;
+import org.camunda.bpm.engine.rest.dto.task.TaskDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,9 @@ public class Controller {
 
     @Autowired
     private UserAndGroupService userAndGroupService;
+
+    @Autowired
+    private UserTaskService userTaskService;
 
     @PostMapping("/save-user")
     public void saveUser(@RequestBody UserModel userModel){
@@ -68,6 +74,11 @@ public class Controller {
     @PostMapping("/add-user-to-group-{userId}-{groupId}")
     public void addUserToGroup(@PathVariable String userId, @PathVariable String groupId){
         userAndGroupService.addUserToGroup(userId,groupId);
+    }
+
+    @GetMapping("/tasklist-{username}")
+    public List<TaskModel> userTasks(@PathVariable String username){
+        return userTaskService.userTasks(username);
     }
 
 }
