@@ -6,7 +6,6 @@ import com.payeshgaran.workflow.model.UserModel;
 import com.payeshgaran.workflow.service.UserAndGroupService;
 import com.payeshgaran.workflow.service.UserTaskService;
 import org.camunda.bpm.engine.identity.User;
-import org.camunda.bpm.engine.rest.dto.task.TaskDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,7 +77,12 @@ public class Controller {
 
     @GetMapping("/tasklist-{username}")
     public List<TaskModel> userTasks(@PathVariable String username){
-        return userTaskService.userTasks(username);
+        return userTaskService.userTaskList(username);
+    }
+
+    @GetMapping("/taskhis-{username}")
+    public List<TaskModel> userhis(@PathVariable String username){
+        return userTaskService.taskHistory(username);
     }
 
 }
