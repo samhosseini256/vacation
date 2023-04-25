@@ -20,20 +20,14 @@ public class UserTaskService {
 
         List<TaskModel> taskListModel= new ArrayList<>();
         List<Task> taskList = taskService.createTaskQuery().taskAssignee(assignee).list();
-
         for (Task tasks: taskList){
-
             TaskModel task = new TaskModel();
             task.setId(tasks.getId());
             task.setName(tasks.getName());
             task.setAssignee(tasks.getAssignee());
-
             taskListModel.add(task);
-
         }
-
         return taskListModel;
-
     }
 
 
