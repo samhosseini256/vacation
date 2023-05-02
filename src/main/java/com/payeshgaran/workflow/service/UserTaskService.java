@@ -28,8 +28,10 @@ public class UserTaskService {
 
     public List<TaskModel> userTaskList(String assignee) {
 
+
         List<TaskModel> taskListModel = new ArrayList<>();
         List<Task> taskList = taskService.createTaskQuery().taskAssignee(assignee).list();
+
         for (Task tasks : taskList) {
             TaskModel task = new TaskModel();
             task.setId(tasks.getId());
@@ -53,7 +55,6 @@ public class UserTaskService {
                 list();
 
         for (HistoricTaskInstance tasks : taskList) {
-
             TaskModel task = new TaskModel();
             task.setId(tasks.getId());
             task.setName(tasks.getName());
