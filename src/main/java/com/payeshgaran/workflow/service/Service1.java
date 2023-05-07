@@ -9,5 +9,7 @@ public class Service1 implements JavaDelegate {
 
         delegateExecution.setVariable("NationalNumber","1890099740");
 
+//        int a = 10/0;
+
     }
 }

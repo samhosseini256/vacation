@@ -85,4 +85,11 @@ public class Controller {
         return userTaskService.taskHistory(username);
     }
 
+
+//    @GetMapping("/incident")
+//    public int incident(){
+//        return userTaskService.getIncidents();
+//    }
+
+
 }

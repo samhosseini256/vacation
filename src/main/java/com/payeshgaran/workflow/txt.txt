@@ -1,0 +1,10 @@
+zeebe.client.cloud.region=ont-1
+zeebe.client.cloud.clusterId=32f5e718-80ba-4b1b-926d-d1fb8ef7687e
+zeebe.client.cloud.clientId=AmIv7k63J-o6zOTCfMwdf2gnwk79j-U0
+zeebe.client.cloud.clientSecret=e7s-fMlxzo.gBP2E12j7-uQDH7Ui3CKRfnBLYUGhbEn4hOA76~82dAZP2hvSW-L2
+
+    implementation 'io.camunda:zeebe-workflow-engine:8.2.0-alpha5'
+    implementation 'io.camunda.spring:spring-boot-starter-camunda:8.2.0-alpha5'
+    implementation 'io.camunda.connector:connector-core:0.9.0'
+    implementation 'io.camunda:zeebe-bpmn-model:8.3.0-alpha1'
+    implementation 'io.zeebe:zeebe-simple-tasklist:1.1.0'
