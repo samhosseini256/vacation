@@ -1,5 +1,6 @@
 package com.payeshgaran.workflow.service;
 
+import com.payeshgaran.workflow.model.AnswerTask;
 import com.payeshgaran.workflow.model.QuestionnaireInboxItem;
 import com.payeshgaran.workflow.model.QuestionnaireSearchParams;
 import com.payeshgaran.workflow.model.WorkflowStep;
@@ -18,6 +19,7 @@ import org.camunda.bpm.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,6 +35,18 @@ public class WorkflowService {
 
     @Autowired
     private HistoryService historyService;
+
+
+    public void answerTask(AnswerTask answer){
+
+        taskService.createComment(answer.getTaskId(), answer.getProcessInstanceID(), answer.getComment());
+
+        Map<String, Object> taskParams = new HashMap<>(1);
+        taskParams.put("outcome", answer.getAnswer());
+
+        taskService.complete(answer.getTaskId(),taskParams);
+
+    }
 
 
     //todo Sahih

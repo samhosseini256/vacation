@@ -1,5 +1,6 @@
 package com.payeshgaran.workflow.controller;
 
+import com.payeshgaran.workflow.model.AnswerTask;
 import com.payeshgaran.workflow.model.QuestionnaireInboxItem;
 import com.payeshgaran.workflow.model.WorkflowStep;
 import com.payeshgaran.workflow.service.WorkflowService;
@@ -11,6 +12,7 @@ import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,13 +30,17 @@ public class Controller {
     @Autowired
     private HistoryService historyService;
 
+    //http://localhost:8080/engine-rest/task?assignee=user1
+
     @GetMapping("/start-{processInstanceId}")
     public List<WorkflowStep> getWorkflowStepsFor(@PathVariable String processInstanceId){
         return workflowService.getWorkflowStepsFor(processInstanceId);
     }
 
-    @GetMapping("/test-{user}")
-    public void claimTask(@PathVariable String user){
+
+    @PostMapping("/answer")
+    public void answer(@RequestBody AnswerTask answerTask){
+        workflowService.answerTask(answerTask);
     }
 
 }
