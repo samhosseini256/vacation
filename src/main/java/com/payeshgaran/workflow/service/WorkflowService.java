@@ -54,6 +54,7 @@ public class WorkflowService {
         result.setUsername(taskInstance.getAssignee());
         result.setInboxEntryDate(taskInstance.getStartTime());
         result.setInboxExitDate(taskInstance.getEndTime());
+        result.setProcessDefinitionKey(taskInstance.getProcessDefinitionKey()); //todo add getProcessDefinitionKey()
 
         List<Comment> taskComments = taskService.getTaskComments(taskInstance.getId());
         List<String> comments = taskComments.stream().map(Comment::getFullMessage).collect(Collectors.toList());

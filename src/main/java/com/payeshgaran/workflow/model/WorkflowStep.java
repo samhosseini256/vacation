@@ -15,6 +15,7 @@ public class WorkflowStep {
     private String taskName;
     private String username;
     private String roleName;
+    private String processDefinitionKey;
     private Date inboxEntryDate;
     private Date inboxExitDate;
     private String comment;
